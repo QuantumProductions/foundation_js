@@ -4,7 +4,7 @@ function time(last, acc, structs, msgs) {
   let total = acc + delta;
   if (total > 100) { //Reloop
   	let input = gamepadInputs();
-  	console.log(input);
+  	console.log("input" + JSON.stringify(input));
   	window.requestAnimationFrame(time.bind(null, now, total - 100, structs, msgs));
   } else {
   	window.requestAnimationFrame(time.bind(null, now, total, structs, msgs));
@@ -14,7 +14,7 @@ function time(last, acc, structs, msgs) {
 window.requestAnimationFrame(time.bind(null, Date.now(), 0, {}, []));
 
 function gamepadInputs() {
-	return mappedInputs(navigator.getGamepads(), 0, {});
+	return mappedInputs(navigator.getGamepads(), 0, []);
 }
 
 function mappedInputs(pads, index, mappedPads) {
@@ -34,13 +34,13 @@ function mappablePadFromGamePad(gp, mappablePad, acc) {
 	if (acc == gp.buttons.length) {
 		return mappablePad;
 	}
-	console.log(Object.keys(mappablePad));
 	return mappablePadFromGamePad(gp, {buttons: mappablePad['buttons'].concat([gp.buttons[acc].value])}, acc+1);
 }
 
 function mappedPadInputs(gp, index) {
-	let buttonMap = [[1, 3]]; //maps for each gamepad slot
-	return mappedPadButtonInputs(gp.buttons, buttonMap[index], {});	 //Buttons only for now
+	let buttonMap = [[1, 2]]; //maps for each gamepad slot
+	return mappedPadButtonInputs(gp.buttons.reverse(), buttonMap[index].reverse(), {});
+	//Buttons only for now
 }
 
 function mappedPadButtonInputs(unmappedButtons, buttonMap, mappedButtons) {
@@ -49,7 +49,8 @@ function mappedPadButtonInputs(unmappedButtons, buttonMap, mappedButtons) {
 	}
 	
 	let popped = buttonMap.pop();
-	
-	mappedButtons[popped] = unmappedButtons.pop().value;
+	let v = unmappedButtons.pop();
+	console.log("v" + v);
+	mappedButtons[popped] = v;
 	return mappedPadButtonInputs(unmappedButtons, buttonMap, mappedButtons);
 }
