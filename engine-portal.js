@@ -13,9 +13,19 @@ function time(last, acc, structs, msgs) {
   }
 }
 
+function stepStructs(keys, structs, transformedStructs) {
+	if (empty(keys)) {
+
+	}
+}
+
 function step(structs, msgs) {
+	//Loop Messages
+	stepStructs(Object.keys(structs), structs, []);
 	//{}, [], {}	
 	return {structs: structs, msgs: msgs};
 }
 
-window.requestAnimationFrame(time.bind(null, Date.now(), 0, {}, []));
+let startingStructs = {'logger' : [Logger, [{}]]};
+
+window.requestAnimationFrame(time.bind(null, Date.now(), 0, startingStructs, []));

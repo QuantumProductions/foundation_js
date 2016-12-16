@@ -31,7 +31,7 @@ function mappedPadInputs(gp, index) {
 }
 
 function mappedPadButtonInputs(unmappedButtons, buttonMap, mappedButtons) {
-	if (buttonMap.length == 0) {
+	if (empty(buttonMap)) {
 		return mappedButtons;
 	}
 	
