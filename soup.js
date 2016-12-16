@@ -6,3 +6,9 @@ class Logger {
 		return s;
 	}
 }
+
+class Incrementer {
+	static step(s) {
+		return {x: s.x + 1};
+	}
+}

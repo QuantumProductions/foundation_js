@@ -7,7 +7,7 @@ function time(last, acc, structs, msgs) {
   	console.log("input" + JSON.stringify(input));
   	msgs.concat([{input: input}]);
   	let s2m2 = step(structs, msgs);
-  	console.log("Returned" + s2m2.structs);
+  	console.log("Returned" + JSON.stringify(s2m2.structs));
   	window.requestAnimationFrame(time.bind(null, now, total - 100, s2m2.structs, s2m2.msgs));
   } else {
   	window.requestAnimationFrame(time.bind(null, now, total, structs, msgs));
@@ -54,6 +54,6 @@ function step(structs, msgs) {
 	return {structs: structs2, msgs: msgs};
 }
 
-let startingStructs = {'logger' : [Logger, [{}]]};
+let startingStructs = {'incrementer' : [Incrementer, [{x: 0}]]};
 
 window.requestAnimationFrame(time.bind(null, Date.now(), 0, startingStructs, []));
