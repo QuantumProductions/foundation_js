@@ -3,5 +3,6 @@
 class Logger {
 	static step(s) {
 		console.log("Logged!");
+		return s;
 	}
 }
