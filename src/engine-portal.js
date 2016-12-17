@@ -32,9 +32,7 @@ function stepStructs(keys, structs, transformedStructs) {
 	}
 
 	let key = keys.pop();
-	console.log(structs[key][0]);
-	console.log(structs[key][1]);
-
+	
 	let keyClass = structs[key][0];
 	if (!transformedStructs[key]) {
 		transformedStructs[key] = [];
@@ -54,6 +52,6 @@ function step(structs, msgs) {
 	return {structs: structs2, msgs: msgs};
 }
 
-let startingStructs = {'incrementer' : [Incrementer, [{x: 0}]]};
+let startingStructs = StartingStructs.get();
 
 window.requestAnimationFrame(time.bind(null, Date.now(), 0, startingStructs, []));
