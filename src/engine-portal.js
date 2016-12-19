@@ -14,11 +14,10 @@ function time(last, acc, structs, msgs) {
 }
 
 function stepStructs3(remaining, keyClass, transformed) {
-	if (remaining.length == 0) {
-		return transformed;
-	}
+	console.log("Arg" + JSON.stringify(arguments));
+	if (remaining.length == 0) {return transformed;}
+	console.log(remaining);
 	let transformedStruct = keyClass.step(remaining.pop());
-	// console.log("TSTRCT" + JSON.stringify(transformedStruct));
 	return stepStructs3(remaining, keyClass, transformed.concat([transformedStruct]));
 }
 
@@ -27,9 +26,7 @@ function stepStructs2(keyClass, structs) {
 }
 
 function stepStructs(keys, structs, transformedStructs) {
-	if (keys.length == 0) {
-		return transformedStructs;
-	}
+	if (keys.length == 0) {return transformedStructs;}
 
 	let key = keys.pop();
 	
@@ -38,14 +35,46 @@ function stepStructs(keys, structs, transformedStructs) {
 		transformedStructs[key] = [keyClass, []];
 	}
 
-	let transformedStructsForKey = stepStructs2(structs[key][0], structs[key][1]);
+	let transformedStructsForKey = stepStructs2(keyClass, structs[key][1]);
 	transformedStructs[key][1] = transformedStructsForKey;
 	return stepStructs(keys, structs, transformedStructs);
 }
 
+function messagedStruct3(keyClass, struct, remaining) {
+	if (remaining.length == 0) { console.log("Returning Messaged Struct" + JSON.stringify(struct));
+		return struct; }
+
+	let msg = remaining.pop();
+	console.log("my message" + msg);
+	let msgdStruct = keyClass.m(struct, msg);
+	return messagedStruct3(keyClass, msgdStruct, remaining);
+}
+
+function messagedStructs2(keyClass, remaining, msgs, messaged) {
+		if (remaining.length == 0) { return messaged;}
+		let struct = remaining.pop();
+		let transformedStruct = messagedStruct3(keyClass, struct, msgs);
+		return messagedStructs2(keyClass, remaining, msgs, messaged.concat([transformedStruct]));
+}
+
+function messagedStructs(keys, structs, msgs, transformedStructs) {
+	if (keys.length == 0) {
+		return transformedStructs;}
+	let key = keys.pop();
+	let keyClass = structs[key][0];
+	if (!transformedStructs[key]) {
+		transformedStructs[key] = [keyClass, []];
+	}
+
+	let transformedStructsForKey = messagedStructs2(keyClass, structs[key][1], msgs, []);
+	transformedStructs[key][1] = transformedStructsForKey;
+
+	return messagedStructs(keys, structs, msgs, transformedStructs);
+}
+
 function step(structs, msgs) {
-	//Loop Messages
-	let structs2 = stepStructs(Object.keys(structs), structs, {});
+	let msgdStructs = messagedStructs(Object.keys(structs), structs, msgs, {});
+	let structs2 = stepStructs(Object.keys(msgdStructs), msgdStructs, {});
 	return {structs: structs2, msgs: msgs};
 }
 
