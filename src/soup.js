@@ -1,6 +1,16 @@
 'use strict';
 
 class Logger {
+  static receive(s, t, m) {
+
+  }
+
+  static acts() {
+  	return {'step' : function(s, t, m) {
+  		console.log("Logged!");
+  	}}
+  }
+
 	static step(s) {
 		console.log("Logged!");
 		return s;

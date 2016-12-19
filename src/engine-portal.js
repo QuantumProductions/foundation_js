@@ -6,6 +6,10 @@ function time(last, acc, structs, msgs) {
   	let input = gamepadInputs();
   	console.log("input" + input);
   	let s2m2 = step(structs, msgs.concat([["input", input]]));
+
+ //  		let msgdStructs = messagedStructs(Object.keys(structs), structs, msgs, {});
+	// let structs2 = stepStructs(Object.keys(msgdStructs), msgdStructs, {});
+	// return {structs: structs2, msgs: msgs};
   	window.requestAnimationFrame(time.bind(null, now, total - 100, s2m2.structs, s2m2.msgs));
   } else {
   	window.requestAnimationFrame(time.bind(null, now, total, structs, msgs));
