@@ -7,6 +7,8 @@ function time(last, acc, structs, msgs) {
   	console.log("input" + input);
   	let s2m2 = step(structs, msgs.concat([["input", input]]));
 
+
+//Gameplayer = accepts input for pause
  //  		let msgdStructs = messagedStructs(Object.keys(structs), structs, msgs, {});
 	// let structs2 = stepStructs(Object.keys(msgdStructs), msgdStructs, {});
 	// return {structs: structs2, msgs: msgs};
