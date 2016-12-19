@@ -4,9 +4,8 @@ function time(last, acc, structs, msgs) {
   let total = acc + delta;
   if (total > 100) { //Reloop
   	let input = gamepadInputs();
-  	msgs.concat([{input: input}]);
-  	let s2m2 = step(structs, msgs);
-  	console.log(JSON.stringify(s2m2));
+  	console.log("input" + input);
+  	let s2m2 = step(structs, msgs.concat([["input", input]]));
   	window.requestAnimationFrame(time.bind(null, now, total - 100, s2m2.structs, s2m2.msgs));
   } else {
   	window.requestAnimationFrame(time.bind(null, now, total, structs, msgs));
@@ -14,9 +13,7 @@ function time(last, acc, structs, msgs) {
 }
 
 function stepStructs3(remaining, keyClass, transformed) {
-	console.log("Arg" + JSON.stringify(arguments));
 	if (remaining.length == 0) {return transformed;}
-	console.log(remaining);
 	let transformedStruct = keyClass.step(remaining.pop());
 	return stepStructs3(remaining, keyClass, transformed.concat([transformedStruct]));
 }
@@ -41,12 +38,11 @@ function stepStructs(keys, structs, transformedStructs) {
 }
 
 function messagedStruct3(keyClass, struct, remaining) {
-	if (remaining.length == 0) { console.log("Returning Messaged Struct" + JSON.stringify(struct));
-		return struct; }
+	if (remaining.length == 0) { return struct; }
 
 	let msg = remaining.pop();
-	console.log("my message" + msg);
-	let msgdStruct = keyClass.m(struct, msg);
+	console.log("my message" + JSON.stringify(msg));
+	let msgdStruct = keyClass.m(struct, msg[0], msg[1]);
 	return messagedStruct3(keyClass, msgdStruct, remaining);
 }
 
@@ -58,8 +54,7 @@ function messagedStructs2(keyClass, remaining, msgs, messaged) {
 }
 
 function messagedStructs(keys, structs, msgs, transformedStructs) {
-	if (keys.length == 0) {
-		return transformedStructs;}
+	if (keys.length == 0) { return transformedStructs;}
 	let key = keys.pop();
 	let keyClass = structs[key][0];
 	if (!transformedStructs[key]) {

@@ -22,14 +22,15 @@ class Mover {
 		return s;
 	}
 
-	static m(s, m) {
-		switch (m[0]) {
-			case "movex":
-				s.x += m[1];
-			case "movey":
-				s.y += m[1];
+	static m(s, t, m) {
+		switch (t) {
+			case "input":
+				if (m.length > 0 && m[0][1]) {
+					console.log("hit it");
+				}
 		}
 
 		return s;
+		
 	}
 }

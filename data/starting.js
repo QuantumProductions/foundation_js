@@ -2,9 +2,8 @@
 
 class StartingStructs {
 	static get() {
-		console.log("Incrementer" + Incrementer);
-		let value = {'incrementer' : [Incrementer, [{x: 0}, {x: 1}]]};
-		console.log("Value" + value);
+		let value = {'incrementer' : [Incrementer, [{x: 0}, {x: 1}]],
+	               'mover' : [Mover, [{x: 0}]]};
 		return value;
 	}
 }

@@ -24,8 +24,6 @@ function mappablePadFromGamePad(gp, mappablePad, acc) {
 
 function mappedPadInputs(gp, index) {
 	let buttonMap = [[1, 2], [1,2]]; //maps for each gamepad slot
-	console.log(buttonMap);
-	console.log(index);
 	return mappedPadButtonInputs(gp.buttons.reverse(), buttonMap[index].reverse(), {});
 	//Buttons only for now
 }
