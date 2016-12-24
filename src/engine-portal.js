@@ -25,18 +25,19 @@ function iterate(msg, list, transformed) {
 
 	let next = list.pop();
 	if (Array.isArray(next)) {
-		return transformed;
+		return iterate(msg, list, transformed.concat([ iterate(msg, next, []) ]));
 	}
 
 	//next is not a list, so next is the data
 	//that means the remaining list is the class
 	let iterClass = list.pop();
+	
 	let actions = iterClass.m();
-	if (actions[msg]) {
-		return iterate(msg, list, transformed.concat([actions[msg](next)]));
+	if (actions[msg[0]]) {
+		return iterate(msg, list, transformed.concat([iterClass, actions[msg[0]](next, msg[1])]));
 	}
 
-	return iterate(msg, list, transformed.concat([next]));
+	return iterate(msg, list, transformed.concat([iterClass, next]));
 	
 }
 

@@ -12,8 +12,8 @@ class StartingStructs {
 	static get() {
 		return [
 			[
-         [Logger, {}],
-         [Incrementer, {x: 0}]
+         [Incrementer, {x: 1000}],
+         [Logger, {}]
 			]
 		]
 	}
