@@ -3,7 +3,9 @@ function time(last, acc, structs, msgs) {
   let delta = now - last;
   let total = acc + delta;
   if (total > 100) { //Reloop
-  	let s2m2 = loop(structs, msgs.concat([['loop', true]]));
+  	  	let input = gamepadInputs();
+  	console.log("input" + JSON.stringify(input));
+  	let s2m2 = loop(structs, msgs.concat([['loop', true], ['input', input]]));
   	window.requestAnimationFrame(time.bind(null, now, total - 100, s2m2.structs, s2m2.messages));
   } else {
   	window.requestAnimationFrame(time.bind(null, now, total, structs, msgs));

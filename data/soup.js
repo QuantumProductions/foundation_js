@@ -25,14 +25,19 @@ class Mover {
   	return {
 
   	'step' : function(s, m) { //Delta time could be used for m here
-  		return [s, []];
+      if (s.moving) {
+        return [{x: s.x + 1, moving:s.moving}, []];
+      }
+      console.log(s.x);
+      return [s, []];
   	}, 
 
   	'input' : function(s, m) {
+      console.log("h");
   		if (m.length > 0 && m[0][1]) {
-				console.log("hit it");
+        return [{x: s.x, moving: true}, []];
 			}
-			return [s, []];
+			return [{x: s.x, moving: false}, []];
   	}};
   }
 }

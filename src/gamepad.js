@@ -9,9 +9,9 @@ function mappedInputs(pads, index, mappedPads) {
 
 	let gp = pads[index];
  	let mappablePad = mappablePadFromGamePad(gp, {buttons: []}, 0);
- 	console.log("mappablePad" + JSON.stringify(mappablePad));
+ 	// console.log("mappablePad" + JSON.stringify(mappablePad));
  	let mappedPad = mappedPadInputs(mappablePad, index);
- 	console.log("My mapped pad" + JSON.stringify(mappedPad));
+ 	// console.log("My mapped pad" + JSON.stringify(mappedPad));
 	return mappedInputs(pads, index + 1, mappedPads.concat([mappedPad]));
 }
 
@@ -35,7 +35,6 @@ function mappedPadButtonInputs(unmappedButtons, buttonMap, mappedButtons) {
 	
 	let popped = buttonMap.pop();
 	let v = unmappedButtons.pop();
-	console.log("v" + v);
 	mappedButtons[popped] = v;
 	return mappedPadButtonInputs(unmappedButtons, buttonMap, mappedButtons);
 }
