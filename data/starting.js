@@ -14,6 +14,16 @@ class StartingStructs {
 			[
          [Incrementer, {x: 1000}],
          [Logger, {}]
+			],
+			[
+				 [Incrementer, {x:0}],
+				 [
+				 		Incrementer, {x:3000},
+				 		[
+				 			Incrementer, {x:2000}
+				 		]
+				 ]
+
 			]
 		]
 	}
