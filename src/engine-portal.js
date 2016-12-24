@@ -16,6 +16,7 @@ function loop(structs, msgs) {
 }
 
 function iterateStart(msg, struct) {
+	//TODO: loop through all messages.
 	return iterate(msg[0], struct, [], [], []);
 }
 
