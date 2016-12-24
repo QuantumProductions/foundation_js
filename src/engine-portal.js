@@ -53,6 +53,11 @@ function iterate(msg, list, transformed, accumulatedMessages, queuedMessages) {
 		let res = actions[msg[0]](next, msg[1]);
 		let structs = res[0];
 		let newMessages = res[1];
+
+		if (structs.decon) {
+			return iterate(msg, list, transformed, accumulatedMessages, newMessages);
+		}
+
 		return iterate(msg, list, transformed.concat([iterClass, structs]), accumulatedMessages, newMessages);
 	}
 
