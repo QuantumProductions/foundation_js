@@ -81,10 +81,7 @@ function iterate(msg, list, transformed, accumulatedMessages, queuedMessages) {
 		return iterate(msg, list, transformed.concat([iterClass, structs]), accumulatedMessages, newMessages);
 	}
 
-	
-
-	return iterate(msg, list, transformed.concat([iterClass, next]), accumulatedMessages, queuedMessages);
-	
+	return iterate(msg, list, transformed.concat([iterClass, next]), accumulatedMessages, queuedMessages);	
 }
 
 let startingStructs = StartingStructs.get();

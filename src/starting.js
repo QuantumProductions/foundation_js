@@ -41,7 +41,11 @@ class StartingStructs {
 	static get() {
 		return [
         [Stepper, {a: 1}],
-        [Pauser, {b: 2}]
+        [Pauser, {b: 2}],
+        [
+          [Position, {x: 0, y: 0, r: 0}],
+          [Nose, {}]
+        ]
 			]
 	}
 }
