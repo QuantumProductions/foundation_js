@@ -11,6 +11,9 @@ class Stepper {
 class Unpauser {
 	static m() {
 		return {'input' : function(s, m) {
+			if (m.length > 0 && m[0][1]) {
+				return [{decon: true}, [ ['create', [Pauser, {d: 4}]] ]];
+			}
 			return [s, []];
 		}}
 	}
@@ -26,7 +29,7 @@ class Pauser {
 
 			'input' : function(s, m) {
 			if (m.length > 0 && m[0][9]) {
-				return [{decon: true},[ ['create', [Unpauser, {}]] ]];
+				return [{decon: true},[ ['create', [Unpauser, {c: 3}]] ]];
 			}
 
 			return [s, []];
@@ -37,8 +40,8 @@ class Pauser {
 class StartingStructs {
 	static get() {
 		return [
-        [Stepper, {}],
-        [Pauser, {}]
+        [Stepper, {a: 1}],
+        [Pauser, {b: 2}]
 			]
 	}
 }
