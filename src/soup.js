@@ -8,13 +8,9 @@ class Logger {
   static acts() {
   	return {'step' : function(s, t, m) {
   		console.log("Logged!");
-  	}}
+  		return [s, m];
+  	}};
   }
-
-	static step(s) {
-		console.log("Logged!");
-		return s;
-	}
 }
 
 class Incrementer {
@@ -28,19 +24,18 @@ class Incrementer {
 }
 
 class Mover {
-	static step(s) {
-		return s;
-	}
+	static m() {
+  	return {
 
-	static m(s, t, m) {
-		switch (t) {
-			case "input":
-				if (m.length > 0 && m[0][1]) {
-					console.log("hit it");
-				}
-		}
+  	'step' : function(s, m) { //Delta time could be used for m here
+  		return [s, []];
+  	}, 
 
-		return s;
-		
-	}
+  	'input' : function(s, m) {
+  		if (m.length > 0 && m[0][1]) {
+				console.log("hit it");
+			}
+			return [s, []];
+  	}};
+  }
 }
