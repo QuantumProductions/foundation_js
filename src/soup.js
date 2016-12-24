@@ -1,25 +1,22 @@
 'use strict';
 
 class Logger {
-  static receive(s, t, m) {
-
-  }
-
-  static acts() {
-  	return {'step' : function(s, t, m) {
+  static m() {
+  	return {'step' : function(s, m) {
   		console.log("Logged!");
-  		return [s, m];
+  		return [s, []];
   	}};
   }
 }
 
 class Incrementer {
-	static step(s) {
-		return {x: s.x + 1};
-	}
-
-	static m(s, m) {
-		return s;
+	static m() {
+		return {
+			'step' : function(s, m) {
+				console.log("h");
+				return [{x: s.x + 1}, []];
+			}
+		}
 	}
 }
 

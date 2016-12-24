@@ -20,7 +20,7 @@ function loop(structs, msgs) {
 
 function messagedStructs(keys, structs, msgs, transformedStructs, accNewMessages, queuedNewMessages) {
 	if (queuedNewMessages.length > 0) {
-		return messagedStruct(keys, structs, msgs, transformedStructs, accNewMessages.concat([queuedNewMessages.pop()]), queuedNewMessages);
+		return messagedStructs(keys, structs, msgs, transformedStructs, accNewMessages.concat([queuedNewMessages.pop()]), queuedNewMessages);
 	}
 	if (keys.length == 0) { return [transformedStructs, accNewMessages]};
 	let key = keys.pop();
@@ -33,8 +33,7 @@ function messagedStructs(keys, structs, msgs, transformedStructs, accNewMessages
 	let transformedStructsForKey = mRes[0];
 	let newMessages = mRes[1];
 	transformedStructs[key][1] = transformedStructsForKey;
-
-	return messagedStructs(keys, structs, msgs, transformedStructs, accNewMessages, queuedNewMessages);
+	return messagedStructs(keys, structs, msgs, transformedStructs, accNewMessages, newMessages);
 }
 
 function messagedStructs2(keyClass, remaining, msgs, messaged, accNewMessages, queuedNewMessages) {
@@ -62,7 +61,7 @@ function messagedStruct3(keyClass, struct, remaining, accNewMessages, queuedNewM
 		let msgdStruct = mRes[0];
 		let newMessages = mRes[1];
 		return messagedStruct3(keyClass, msgdStruct, remaining, accNewMessages, newMessages);
-	} 
+	}
 
 	return messagedStruct3(keyClass, struct, remaining, accNewMessages, []);
 	
