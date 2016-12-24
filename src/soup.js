@@ -13,7 +13,7 @@ class Incrementer {
 	static m() {
 		return {
 			'step' : function(s, m) {
-				console.log("h");
+				console.log(s.x);
 				return [{x: s.x + 1}, []];
 			}
 		}

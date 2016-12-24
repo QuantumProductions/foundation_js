@@ -3,8 +3,8 @@ function time(last, acc, structs, msgs) {
   let delta = now - last;
   let total = acc + delta;
   if (total > 100) { //Reloop
+  	console.log("all messages" + msgs);
   	let input = gamepadInputs();
-  	// console.log("input" + input);
   	let s2m2 = loop(structs, msgs.concat([["input", input]], [["loop", true]]));
   	window.requestAnimationFrame(time.bind(null, now, total - 100, s2m2.structs, s2m2.msgs));
   } else {
@@ -42,7 +42,7 @@ function messagedStructs2(keyClass, remaining, msgs, messaged, accNewMessages, q
 	  }
 		if (remaining.length == 0) { return [messaged, accNewMessages]};
 		let struct = remaining.pop();
-		let mRes = messagedStruct3(keyClass, struct, msgs, [], []);
+		let mRes = messagedStruct3(keyClass, struct, Object.create(msgs), [], []);
 		let transformedStruct = mRes[0];
 		let newMessages = mRes[1];
 		return messagedStructs2(keyClass, remaining, msgs, messaged.concat([transformedStruct]), accNewMessages, newMessages);

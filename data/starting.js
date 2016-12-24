@@ -11,7 +11,7 @@ class Stepper {
 class StartingStructs {
 	static get() {
 		let value = {'stepper' : [Stepper, [{}]],
-									// 'incrementer' : [Incrementer, [{x: 0}, {x: 1}]],
+									'incrementer' : [Incrementer, [{x: 1000}, {x: 20000}]],
 											              'logger' : [Logger, [{}]]
 	               };
 		return value;
