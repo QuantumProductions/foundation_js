@@ -4,6 +4,7 @@ class Logger {
   static m() {
   	return {'step' : function(s, m) {
   		console.log("Logged!");
+  		return s;
   		return [s, []];
   	}};
   }
@@ -14,6 +15,7 @@ class Incrementer {
 		return {
 			'step' : function(s, m) {
 				console.log(s.x);
+				return {x: s.x + 1};
 				return [{x: s.x + 1}, []];
 			}
 		}
