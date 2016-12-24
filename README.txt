@@ -32,5 +32,5 @@ The step message is a convention to tell the structures in the game world "step 
 
 This step message is listened to by the Logger, which calls console.log, the Incrementer, which adds 1 to its .x attribute every step.
 
-These Classes are found in the /src/soup.js file. I called it "Soup" because its where I throw ingredients into.
-Conversely, the /data/starting.js is meant to be more of an engine constant. Theoretically this file might never change, starting only with a GameStart structure, where GameStart is defined by the specific game in a /src/ file.
+These Classes are found in the /data/soup.js file. I called it "Soup" because its where I throw ingredients into.
+Conversely, the /src/starting.js is meant to be more of an engine constant. Theoretically this file might never change, starting only with a GameStart structure, where GameStart is defined by the specific game in a /src/ file.
