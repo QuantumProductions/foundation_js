@@ -11,13 +11,17 @@ function time(last, acc, structs, msgs) {
 }
 
 function loop(structs, msgs) {
-	let mRes = iterateStart(msgs, structs);
+	let mRes = iterateStart(msgs, structs, []);
 	return {structs: mRes[0], messages: mRes[1]};
 }
 
-function iterateStart(msg, struct) {
-	//TODO: loop through all messages.
-	return iterate(msg[0], struct, [], [], []);
+function iterateStart(msgs, struct, accumulatedMessages) {
+	if (msgs.length == 0) {
+		return [struct, accumulatedMessages];
+	}
+	let msg = msgs.pop();
+	let res = iterate(msg, struct, [], [], []);
+	return iterateStart(msgs, res[0], accumulatedMessages.concat(res[1]));
 }
 
 function iterate(msg, list, transformed, accumulatedMessages, queuedMessages) {
