@@ -11,6 +11,7 @@ class Stepper {
 class StartingStructs {
 	static get() {
 		return [
+        [Stepper, {}],
 			[
          [Incrementer, {x: 1000}],
          [Logger, {}]
