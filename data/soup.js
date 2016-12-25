@@ -67,6 +67,7 @@ class Nose {
   static m() {
     return {
       '_position' : function(s, m) {
+        console.log("hi");
         s.position = m;
         return [s, []];
       },

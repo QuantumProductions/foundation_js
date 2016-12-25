@@ -23,7 +23,7 @@ class Pauser {
 	static m() {
 		return {
       'step' : function(s, m) {
-      	console.log("Just waiting to pause");
+      	// console.log("Just waiting to pause");
       	return [s, []];
       },
 

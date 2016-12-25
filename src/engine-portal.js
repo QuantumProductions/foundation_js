@@ -6,7 +6,7 @@ function time(last, acc, structs, msgs) {
   	  	let input = gamepadInputs();
   	// console.log("input" + JSON.stringify(input));
   	let s2m2 = loop(structs, msgs.concat([['loop', true], ['input', input]]));
-  	console.log("Total" + JSON.stringify(s2m2.structs));
+  	// console.log("Total" + JSON.stringify(s2m2.structs));
   	window.requestAnimationFrame(time.bind(null, now, total - 100, s2m2.structs, s2m2.messages));
   } else {
   	window.requestAnimationFrame(time.bind(null, now, total, structs, msgs));
@@ -37,25 +37,35 @@ function iterateStart(msgs, struct, accumulatedMessages) {
 		return [struct, accumulatedMessages];
 	}
 	let msg = msgs.pop();
-	let res = iterate(msg, struct, [], [], []);
+	let res = iterate(msg, struct, [], [], [], []);
 	return iterateStart(msgs, res[0], accumulatedMessages.concat(res[1]));
 }
 
-function iterate(msg, list, transformed, accumulatedMessages, queuedMessages) {
+function iterate(msg, list, transformed, accumulatedMessages, queuedMessages, siblingMessages) {
 	if (queuedMessages.length > 0) {
-		return iterate(msg, list, transformed, accumulatedMessages.concat([queuedMessages.pop()]), queuedMessages);
+		return iterate(msg, list, transformed, accumulatedMessages.concat([queuedMessages.pop()]), queuedMessages, siblingMessages);
 	}
 
-	if (list.length == 0) { return [transformed, accumulatedMessages]};
+	if (list.length == 0) { 
+		if (siblingMessages.length > 0) {
+			console.log(siblingMessages);
+			console.log("Help" + JSON.stringify(transformed));
+			let res = iterateStart(siblingMessages, transformed, []);
+			return [res[0], accumulatedMessages.concat(res[1])];
+		}
+		return [transformed, accumulatedMessages];
+
+	};
 
 	let next = list.pop();
 	if (Array.isArray(next)) {
 		if (next.length == 0) {
-			return iterate(msg, list, transformed, accumulatedMessages, queuedMessages);
+			return iterate(msg, list, transformed, accumulatedMessages, queuedMessages, siblingMessages);
 		}
 
-		let res = iterate(msg, next, [], [], []);
-		return iterate(msg, list, transformed.concat([res[0]]), accumulatedMessages, queuedMessages.concat(res[1]));
+		let res = iterate(msg, next, [], [], [], siblingMessages);
+		let newSiblingMessages = res[2] ? res[2] : [];
+		return iterate(msg, list, transformed.concat([res[0]]), accumulatedMessages, queuedMessages.concat(res[1]), siblingMessages.concat(newSiblingMessages));
 	}
 
 	//NOTE: This implementation sends every message to every structure.
@@ -72,16 +82,17 @@ function iterate(msg, list, transformed, accumulatedMessages, queuedMessages) {
 		let res = actions[msg[0]](next, msg[1]);
 		let structs = res[0];
 		let newMessages = res[1];
+		let newSiblingMessages = res[2] ? res[2] : [];
 
 		if (structs.decon) {
 			// console.log(list);
-			return iterate(msg, list, transformed, accumulatedMessages, newMessages);
+			return iterate(msg, list, transformed, accumulatedMessages, newMessages, siblingMessages.concat(newSiblingMessages));
 		}
-
-		return iterate(msg, list, transformed.concat([iterClass, structs]), accumulatedMessages, newMessages);
+		
+		return iterate(msg, list, transformed.concat([iterClass, structs]), accumulatedMessages, newMessages, siblingMessages.concat(newSiblingMessages));
 	}
 
-	return iterate(msg, list, transformed.concat([iterClass, next]), accumulatedMessages, queuedMessages);	
+	return iterate(msg, list, transformed.concat([iterClass, next]), accumulatedMessages, queuedMessages, siblingMessages);	
 }
 
 let startingStructs = StartingStructs.get();
